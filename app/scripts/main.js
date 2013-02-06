@@ -1,5 +1,5 @@
 
-// Try functions
+/*
 var newTask1 = {
 	title : "Practice kata",
 	due : "2013-2-26",
@@ -23,5 +23,9 @@ for (var key in cTodo.Data.localTasks){
 //cTodo.Data.updateTask( localTask1.id, { note: "this one is updated"});
 
 //cTodo.Data.deleteTask(localTask1.id);
-
+cTodo.Data.save();
 console.log(cTodo.Data.localTasks);
+*/
+window.onload = function(){
+	cTodo.Core.initialize();
+};

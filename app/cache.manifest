@@ -1,0 +1,12 @@
+CACHE MANIFEST
+NETWORK:
+*
+CACHE:
+styles/main.css
+scripts/cTodo_adapters.js
+scripts/cTodo_core.js
+scripts/cTodo_data.js
+scripts/cTodo_type.js
+scripts/cTodo_ui.js
+scripts/main.js
+index.html

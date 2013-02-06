@@ -2,23 +2,22 @@ var cTodo = cTodo || {};
 cTodo.Adapters = {};
 
 cTodo.Adapters.Google = {
-
-	// Adapter Variables
+	// Adapter variables
 	listId : "",
-	updated : "", 
+	updated : "",
 	idTable : {}, // A table for matching local Id to Google tasks Id
 
-	// Methods
-	createTask : function(task){ 
-		
-	},
-	getTask : function(taskId){ 
+	// Adapter functions
+	createTask : function(task, callback){
 
 	},
-	updateTask : function(taskId, task){
+	getTask : function(taskId, callback){
 
 	},
-	deleteTask : function(taskId){
+	updateTask : function(taskId, task, callback){
+
+	},
+	deleteTask : function(taskId, callback){
 		// Make attrtibute "deleted" as true
 	}
 }

@@ -1,9 +1,13 @@
 var cTodo = cTodo || {};
 
 cTodo.Data = {
+	// Data variables
+	remoteAdpater : {},
 	localTasks : {},
-	load : function(){ 
-		// Initialize Data with localStorage when possible
+
+	// Data functions
+	load : function(){ // Initialize Data with localStorage when possible
+		if (!(('localStorage' in window) && window.localStorage !== null)) { return false; }
 		var storedEntry;
 		for( storedEntry in localStorage){
 			if(/^task_/.test(storedEntry)){
@@ -11,29 +15,32 @@ cTodo.Data = {
 			}
 		}
 	},
-	save : function(taskId){ 
-		// Save Data with localStorage when possible
-		localStorage["task_"+taskId] = JSON.stringify(this.localTasks[taskId]);
+	save : function(taskId){ // Save Data with localStorage when possible
+		if (!(('localStorage' in window) && window.localStorage !== null)) { return false; }
+		if(taskId === undefined){
+			var localEntry;
+			for( localEntry in this.localTasks){
+				localStorage["task_"+localEntry] = JSON.stringify(this.localTasks[localEntry]);
+			}
+		} else{ localStorage["task_"+taskId] = JSON.stringify(this.localTasks[taskId]); }
 	},
 	createTask : function(task){
-		// Random an Id for the task
-		do { task.id = (((1+Math.random())*0x10000)|0).toString(16).substring(1);
+		// Generate a random Id (until no Id clash) for the task
+		do { task.id = (((1+Math.random())*0x10000)|0).toString(16).slice(1);
 		} while(this.localTasks.hasOwnProperty(task.id))
 		this.localTasks[task.id] = task;
 	},
-	getTask : function(taskId){ 
-		if(this.localTasks.hasOwnProperty(taskId)){
-			return this.localTasks[taskId];
-		}
+	getTask : function(taskId){
+		if(!this.localTasks.hasOwnProperty(taskId)){ return false; }
+		return this.localTasks[taskId];
 	},
 	updateTask : function(taskId, partialTask){
-		if(this.localTasks.hasOwnProperty(taskId)){
-			for(var key in partialTask){ this.localTasks[taskId][key] = partialTask[key]; }
-		}
+		if(!this.localTasks.hasOwnProperty(taskId)){ return false; }
+		var key;
+		for(key in partialTask){ this.localTasks[taskId][key] = partialTask[key]; }
 	},
 	deleteTask : function(taskId){
-		if(this.localTasks.hasOwnProperty(taskId)){
-			delete this.localTasks[taskId];	
-		}
+		if(!this.localTasks.hasOwnProperty(taskId)){ return false; }
+		delete this.localTasks[taskId];
 	}
 };
