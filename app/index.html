@@ -16,6 +16,7 @@
 		<script src="scripts/vendor/modernizr.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+		<script src="https://apis.google.com/js/client.js?onload=load"></script>
 
 		<script src="scripts/cTodo_type.js"></script>
 		<script src="scripts/cTodo_data.js"></script>
@@ -30,7 +31,7 @@
 		<!--[if lt IE 7]>
 			<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
 		<![endif]-->
-
+		<button onclick="cTodo.Adapters.Google.auth();">Authorize</button>
 		<ol id="todoList">
 		</ol>
 
