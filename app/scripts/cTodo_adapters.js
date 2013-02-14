@@ -17,25 +17,33 @@ cTodo.Adapters.Google = {
 
 	//
 	auth : function(){
-		var config = {
-			'client_id': this.regInfo.clientId,
-			'scope': this.regInfo.scope
-		};
-		gapi.auth.authorize(config, function() {
-			console.log('login complete');
-			console.log(gapi.auth.getToken());
-		});
+		gapi.auth.authorize(
+			{
+				'client_id': this.regInfo.clientId,
+				'scope': this.regInfo.scope
+			},
+			function() {
+				console.log('login complete');
+				console.log(gapi.auth.getToken());
+			}
+		);
     },
 
 	// Global adapter functions
 	initialize : function(){
-		gapi.client.setApiKey(this.regInfo.apiKey);
+		gapi.client.setApiKey(this.regInfo.apiKey); // Optional : Set Google API key
+	},
+	import : function(){
+
 	},
 	createTask : function(task, callback){
 
 	},
 	getTask : function(taskId, callback){
-
+		gapi.client.load('tasks', 'v1', function(){
+			var request = gapi.client.tasks.tasklists.list();
+			request.execute(function(resp){ console.log(resp); });
+		});
 	},
 	updateTask : function(taskId, task, callback){
 

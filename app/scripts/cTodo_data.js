@@ -17,17 +17,17 @@ cTodo.Data = {
 	},
 	save : function(taskId){ // Save Data with localStorage when possible
 		if (!(('localStorage' in window) && window.localStorage !== null)) { return false; }
-		if(taskId === undefined){
-			var localEntry;
-			for( localEntry in this.localTasks){
-				localStorage["task_"+localEntry] = JSON.stringify(this.localTasks[localEntry]);
+		if(taskId === undefined){ // Save all local tasks
+			var localTaskId;
+			for( localTaskId in this.localTasks){
+				localStorage["task_"+localTaskId] = JSON.stringify(this.localTasks[localTaskId]);
 			}
 		} else{ localStorage["task_"+taskId] = JSON.stringify(this.localTasks[taskId]); }
 	},
 	createTask : function(task){
 		// Generate a random Id (until no Id clash) for the task
 		do { task.id = (((1+Math.random())*0x10000)|0).toString(16).slice(1);
-		} while(this.localTasks.hasOwnProperty(task.id))
+		} while( this.localTasks.hasOwnProperty(task.id) )
 		this.localTasks[task.id] = task;
 	},
 	getTask : function(taskId){

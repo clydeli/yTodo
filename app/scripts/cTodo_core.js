@@ -7,6 +7,7 @@ cTodo.Core = {
 	// Core functions
 	initialize : function(){
 		console.log("Core initializing...");
+
 		// Set remote DataAdapter to Google
 		cTodo.Data.remoteAdpater = cTodo.Adapters.Google;
 
@@ -23,13 +24,13 @@ cTodo.Core = {
 	eventBinding : function(){ // Binding system events
 		window.addEventListener('online', function(e) {
 			this.isOnline = true;
-  			console.log("online");
-  			// Sync!
+			console.log("online");
+			// Sync!
 		}, false);
 		window.addEventListener('offline', function(e) {
-  			this.isOnline = false;
-  			console.log("offline");
-  			// Maybe disable some functionality
+			this.isOnline = false;
+			console.log("offline");
+			// Maybe disable some functionality
 		}, false);
 	}
 	//
