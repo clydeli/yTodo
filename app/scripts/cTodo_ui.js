@@ -5,8 +5,7 @@ cTodo.UI = {
 	initialize : function(){
 		console.log("UI initializing...");
 		// Read task data and append to html
-		var key;
-		for(key in cTodo.Data.localTasks){
+		for(var key in cTodo.Data.localTasks){
 			$("#todoList").append( "<li>"+cTodo.Data.localTasks[key].title+"</li>");
 		}
 		this.eventBinding();

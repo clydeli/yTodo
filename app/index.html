@@ -11,30 +11,38 @@
 		<meta name="viewport" content="width=device-width">
 
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-
-		<link rel="stylesheet" href="styles/main.css">
-		<script src="scripts/vendor/modernizr.min.js"></script>
+		<script src="scripts/modernizr.min.custom.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=load"></script>
 
+		<!-- build:css styles/cTodo.css -->
+		<link rel="stylesheet" href="styles/main.css">
+		<!-- endbuild -->
+
+		<!-- build:js scripts/cTodo.js -->
 		<script src="scripts/cTodo_type.js"></script>
 		<script src="scripts/cTodo_data.js"></script>
 		<script src="scripts/cTodo_adapters.js"></script>
 		<script src="scripts/cTodo_ui.js"></script>
 		<script src="scripts/cTodo_core.js"></script>
 		<script src="scripts/main.js"></script>
-
+		<!-- endbuild -->
 	</head>
 	<body>
-
 		<!--[if lt IE 7]>
 			<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
 		<![endif]-->
-		<button onclick="cTodo.Adapters.Google.auth();">Authorize</button>
+
+		<!--
+		<button onclick="cTodo.Adapters.Google.initialize();">Authorize</button>
 		<button onclick="cTodo.Adapters.Google.getTask();">GetTask</button>
-		<ol id="todoList">
-		</ol>
+		-->
+		<header></header>
+		<div id="taskArea">
+			<ol id="todoList">
+			</ol>
+		</div>
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
 		<!--

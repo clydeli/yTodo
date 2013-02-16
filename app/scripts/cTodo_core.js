@@ -9,11 +9,10 @@ cTodo.Core = {
 		console.log("Core initializing...");
 
 		// Set remote DataAdapter to Google
-		cTodo.Data.remoteAdpater = cTodo.Adapters.Google;
+		cTodo.Data.remoteAdapter = cTodo.Adapters.Google;
 
-		if(('localStorage' in window) && window.localStorage !== null) {
-			cTodo.Data.load();
-		} else { alert("Your browser does not support localStorage") }
+		if(Modernizr.localstorage) { cTodo.Data.initialize(); }
+		else { alert("Your browser does not support localStorage") }
 
 		// Initialize UI
 		cTodo.UI.initialize();

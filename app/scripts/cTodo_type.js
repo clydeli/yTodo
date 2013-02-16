@@ -1,17 +1,20 @@
 var cTodo = cTodo || {};
 cTodo.Type = {};
 
+// Define the Type "taskItem"
 cTodo.Type.taskItem = function(task){
 	this.id = task.id || "";
 	this.title = task.title || "";
 	this.status = task.status || "needs Action";
-	this.links = task.links || [];
-	this.tags = task.tags || [];
-	this.due = task.due || "";
-	this.note = task.note || "";
-	this.priority = task.priority || 1; //
 	this.updated = task.updated || (new Date());
 	this.isSynced = task.isSynced || false;
+	// Optional content
+	if(task.category){ this.category = task.category || "active" }; // Active, Backlog, Regular
+	if(task.links){ this.links = task.links || [] }; // Mail, Map, Regular links
+	if(task.tags){ this.tags = task.tags || [] };
+	if(task.due){ this.due = task.due || (new Date()) };
+	if(task.note){ this.note = task.note || "" };
+	if(task.priority){ this.priority = task.priority || 1; }
 };
 
 cTodo.Type.taskItem.prototype = {

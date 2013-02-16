@@ -15,23 +15,10 @@ cTodo.Adapters.Google = {
 		idTable : {} // A table for matching local Id to Google tasks Id
 	},
 
-	//
-	auth : function(){
-		gapi.auth.authorize(
-			{
-				'client_id': this.regInfo.clientId,
-				'scope': this.regInfo.scope
-			},
-			function() {
-				console.log('login complete');
-				console.log(gapi.auth.getToken());
-			}
-		);
-    },
-
 	// Global adapter functions
 	initialize : function(){
 		gapi.client.setApiKey(this.regInfo.apiKey); // Optional : Set Google API key
+		this.oauth();
 	},
 	import : function(){
 
@@ -50,5 +37,20 @@ cTodo.Adapters.Google = {
 	},
 	deleteTask : function(taskId, callback){
 		// Make attrtibute "deleted" as true
-	}
+	},
+
+
+	//
+	oauth : function(){
+		gapi.auth.authorize(
+			{
+				'client_id': this.regInfo.clientId,
+				'scope': this.regInfo.scope
+			},
+			function() {
+				console.log('login complete');
+				console.log(gapi.auth.getToken());
+			}
+		);
+    }
 }
