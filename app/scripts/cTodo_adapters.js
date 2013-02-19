@@ -20,9 +20,7 @@ cTodo.Adapters.Google = {
 		gapi.client.setApiKey(this.regInfo.apiKey); // Optional : Set Google API key
 		this.oauth();
 	},
-	import : function(){
 
-	},
 	createTask : function(task, callback){
 
 	},
@@ -40,7 +38,7 @@ cTodo.Adapters.Google = {
 	},
 
 
-	//
+	// Adpater inner functions
 	oauth : function(){
 		gapi.auth.authorize(
 			{
@@ -52,5 +50,8 @@ cTodo.Adapters.Google = {
 				console.log(gapi.auth.getToken());
 			}
 		);
-    }
+    },
+    checkToken : function(){ },
+    refreshToken : function(){ },
+	importList : function(){ }
 }

@@ -1,1 +1,58 @@
-/* Will be compiled down to a single stylesheet with your sass files */
+html { height: 100%;}
+body { width: 100%; height: 100%; margin: 0;}
+
+b { font-weight: 700; }
+a { text-decoration: none; }
+del { text-decoration: line-through; }
+i { font-style: italic; }
+
+ol { list-style: none; margin: auto; }
+
+.completed { text-decoration: line-through; }
+.hidden { width: 0; opacity: 0; overflow: hidden; }
+
+#cTodoHeader, #taskArea { float: left; height : 100%; }
+
+#cTodoHeader {
+	background-image:url(../imgs/paper_fibers.png);
+	min-height: 100%; min-width: 20%;
+	box-shadow: 3px 0px 3px 3px #333;
+	color : #333;
+}
+#cTodoHeader ol {
+	float : right; margin-top: 96px; margin-right: 12px;
+	font-weight: 700;
+}
+#cTodoHeader ol li { opacity: 0.8; cursor: pointer;}
+#cTodoHeader ol li:hover { opacity: 1; }
+#taskArea {
+	background-image:url(../imgs/dark_wood.png);
+	min-height: 100%; min-width: 80%;
+}
+
+#todoList_active {margin-top: 96px;}
+#todoList_active li {
+	background-image:url(../imgs/paper_fibers.png);
+	width: 256px; margin: 6px;
+	-webkit-transition: all 300ms ease;
+}
+#todoList_active li div {
+	background-color: khaki; opacity: 0.7;
+	padding: 3px 6px; width: 206px;
+	display: inline-block;
+}
+
+#todoList_active li .closeButton { background: #ccc;  opacity: 0.7; cursor: pointer; display: inline-block; width: 20px;}
+#todoList_active li .closeButton:hover { opacity: 1;}
+
+li#newTask {
+	overflow: hidden;
+	width: 20px;
+	-webkit-transition: width 300ms ease;
+}
+
+li#newTask input {
+	width: 200px;
+	background-color: khaki;
+	border: 0;
+}

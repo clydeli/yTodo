@@ -12,8 +12,8 @@
 
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<script src="scripts/modernizr.min.custom.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.9.2/jquery-ui.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=load"></script>
 
 		<!-- build:css styles/cTodo.css -->
@@ -38,10 +38,16 @@
 		<button onclick="cTodo.Adapters.Google.initialize();">Authorize</button>
 		<button onclick="cTodo.Adapters.Google.getTask();">GetTask</button>
 		-->
-		<header></header>
+		<header id="cTodoHeader">
+			<div id="cTodoLogo"></div>
+			<ol><li></li></ol>
+		</header>
 		<div id="taskArea">
-			<ol id="todoList">
+			<ol id="todoList_active">
+				<!--<li><div>Task 1<div class="closeButton">x</div></div></li>-->
+				<li id="newTask"><div class="trigger"> + </div></li>
 			</ol>
+			<ol id="todoList_timeline"></ol>
 		</div>
 
 		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

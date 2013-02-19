@@ -11,10 +11,11 @@ cTodo.Core = {
 		// Set remote DataAdapter to Google
 		cTodo.Data.remoteAdapter = cTodo.Adapters.Google;
 
-		if(Modernizr.localstorage) { cTodo.Data.initialize(); }
-		else { alert("Your browser does not support localStorage") }
+		// Alert message of lacking support on localStorage
+		if(!Modernizr.localstorage) { alert("Your browser does not support localStorage"); }
 
-		// Initialize UI
+		// Initilization
+		cTodo.Data.initialize();
 		cTodo.UI.initialize();
 
 		// Do core event binding
@@ -32,13 +33,5 @@ cTodo.Core = {
 			// Maybe disable some functionality
 		}, false);
 	}
-	//
-	/*sync : function(taskID){
-		if(taskID === undefined){
-			// Sync all tasks
-		} else {
-			// Sync specified task
-			// check version info on server -> replace(synced) or merge(not synced) with local version -> update task
-		}
-	}*/
+
 };

@@ -9,12 +9,18 @@ cTodo.Data = {
 	initialize : function(){
 		this.storageLoad();
 	},
+	connectRemoteAdapter : function(){
+
+	},
+
+	// Data CRUD functions
 	createTask : function(task){
 		// Generate a random Id (until no Id clash) for the task
 		do { task.id = (((1+Math.random())*0x10000)|0).toString(16).slice(1);
 		} while( this.localTasks.hasOwnProperty(task.id) )
 		this.localTasks[task.id] = task;
-		this.storageSave(taskId);
+		this.storageSave(task.id);
+		return task.id;
 	},
 	getTask : function(taskId){
 		if(!this.localTasks.hasOwnProperty(taskId)){ return false; }
