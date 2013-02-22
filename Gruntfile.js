@@ -234,7 +234,7 @@ module.exports = function (grunt) {
 
         grunt.task.run([
             'clean:server',
-            'coffee:dist',
+            //'coffee:dist',
             'compass:server',
             'livereload-start',
             'connect:livereload',
@@ -266,10 +266,6 @@ module.exports = function (grunt) {
         'copy',
         'usemin'
     ]);
-
-    /*grunt.registerTask('lint', [
-        'jshint',
-    ]);*/
 
     grunt.registerTask('default', ['build']);
 };

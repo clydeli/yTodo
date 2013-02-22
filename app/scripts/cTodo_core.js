@@ -6,13 +6,13 @@ cTodo.Core = {
 
 	// Core functions
 	initialize : function(){
-		console.log("Core initializing...");
+		console.log('Core initializing...');
 
 		// Set remote DataAdapter to Google
 		cTodo.Data.remoteAdapter = cTodo.Adapters.Google;
 
 		// Alert message of lacking support on localStorage
-		if(!Modernizr.localstorage) { alert("Your browser does not support localStorage"); }
+		if(!Modernizr.localstorage) { alert('Your browser does not support localStorage'); }
 
 		// Initilization
 		cTodo.Data.initialize();
@@ -24,12 +24,12 @@ cTodo.Core = {
 	eventBinding : function(){ // Binding system events
 		window.addEventListener('online', function(e) {
 			this.isOnline = true;
-			console.log("online");
+			console.log('online');
 			// Sync!
 		}, false);
 		window.addEventListener('offline', function(e) {
 			this.isOnline = false;
-			console.log("offline");
+			console.log('offline');
 			// Maybe disable some functionality
 		}, false);
 	}

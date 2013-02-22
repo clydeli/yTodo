@@ -19,40 +19,66 @@ ol { list-style: none; margin: auto; }
 	box-shadow: 3px 0px 3px 3px #333;
 	color : #333;
 }
-#cTodoHeader ol {
+/*#cTodoHeader ol {
 	float : right; margin-top: 96px; margin-right: 12px;
 	font-weight: 700;
 }
 #cTodoHeader ol li { opacity: 0.8; cursor: pointer;}
-#cTodoHeader ol li:hover { opacity: 1; }
+#cTodoHeader ol li:hover { opacity: 1; }*/
+
+
 #taskArea {
 	background-image:url(../imgs/dark_wood.png);
 	min-height: 100%; min-width: 80%;
 }
 
-#todoList_active {margin-top: 96px;}
+.corkBoard {
+    background-image:url(../imgs/fzm-seamless.corkboard.texture.jpg);
+    border: 2px ridge #666; border-radius: 1px;
+}
+
+
+#todoList_active {
+    width: 256px;
+    margin: 6em 0 0 3em;
+    padding: 1em;
+}
+
 #todoList_active li {
+    position: relative; overflow: hidden;
 	background-image:url(../imgs/paper_fibers.png);
-	width: 256px; margin: 6px;
-	-webkit-transition: all 300ms ease;
+	width: 98%; margin: 6px 3px;
+	box-shadow: 1px 1px 2px 1px #333;
+    -webkit-backface-visibility : hidden;
+    -webkit-transition: all 300ms ease;
 }
-#todoList_active li div {
-	background-color: khaki; opacity: 0.7;
-	padding: 3px 6px; width: 206px;
-	display: inline-block;
+.taskBody {
+    display: inline-block; padding: 0.3em 1%; width: 88%;
+    background-color: khaki; opacity: 0.7;
 }
 
-#todoList_active li .closeButton { background: #ccc;  opacity: 0.7; cursor: pointer; display: inline-block; width: 20px;}
-#todoList_active li .closeButton:hover { opacity: 1;}
+.closeButton {
+    display: inline-block;  width: 10%;
+    text-align: center; background: #eee;  opacity: 0.7; cursor: pointer;
+    &:hover { opacity: 1; }
+}
 
-li#newTask {
-	overflow: hidden;
-	width: 20px;
+#todoList_active li.newTask {
+	display: inline-block; width: auto;
 	-webkit-transition: width 300ms ease;
-}
 
-li#newTask input {
-	width: 200px;
-	background-color: khaki;
-	border: 0;
+    .addButton {
+    	display: inline-block; width: 1.4em;
+    	text-align: center; cursor: pointer;
+    }
+    .closeButton { display: none;}
+    input {
+    	display: none;
+        border: 0; height: 1.5em;
+    }
+    &.expandedNewTask {
+    	width: 98%;
+        .addButton { display: none; }
+        input, .closeButton { display: inline-block;}
+    }
 }

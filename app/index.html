@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js" manifest="cache.manifest"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -11,16 +11,16 @@
 		<meta name="viewport" content="width=device-width">
 
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-		<script src="scripts/modernizr.min.custom.js"></script>
+		<script src="scripts/vendor/modernizr.min.custom.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=load"></script>
 
-		<!-- build:css styles/cTodo.css -->
+		<!-- build:css styles/main.css -->
 		<link rel="stylesheet" href="styles/main.css">
 		<!-- endbuild -->
 
-		<!-- build:js scripts/cTodo.js -->
+		<!-- build:js scripts/main.js -->
 		<script src="scripts/cTodo_type.js"></script>
 		<script src="scripts/cTodo_data.js"></script>
 		<script src="scripts/cTodo_adapters.js"></script>
@@ -43,9 +43,11 @@
 			<ol><li></li></ol>
 		</header>
 		<div id="taskArea">
-			<ol id="todoList_active">
-				<!--<li><div>Task 1<div class="closeButton">x</div></div></li>-->
-				<li id="newTask"><div class="trigger"> + </div></li>
+			<ol id="todoList_active" class="corkBoard">
+				<li class="newTask">
+                    <div class="addButton taskBody">+</div>
+                    <input class="taskBody"><div class="closeButton">x</div>
+                </li>
 			</ol>
 			<ol id="todoList_timeline"></ol>
 		</div>

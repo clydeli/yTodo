@@ -17,7 +17,7 @@ cTodo.Data = {
 	createTask : function(task){
 		// Generate a random Id (until no Id clash) for the task
 		do { task.id = (((1+Math.random())*0x10000)|0).toString(16).slice(1);
-		} while( this.localTasks.hasOwnProperty(task.id) )
+		} while( this.localTasks.hasOwnProperty(task.id) );
 		this.localTasks[task.id] = task;
 		this.storageSave(task.id);
 		return task.id;
@@ -50,12 +50,12 @@ cTodo.Data = {
 		if (!Modernizr.localstorage) { return false; }
 		if(taskId === undefined){ // Save all local tasks
 			for(var localTaskId in this.localTasks){
-				localStorage["task_"+localTaskId] = JSON.stringify(this.localTasks[localTaskId]);
+				localStorage['task_'+localTaskId] = JSON.stringify(this.localTasks[localTaskId]);
 			}
-		} else{ localStorage["task_"+taskId] = JSON.stringify(this.localTasks[taskId]); }
+		} else{ localStorage['task_'+taskId] = JSON.stringify(this.localTasks[taskId]); }
 	},
 	storageDelete : function(taskId){
 		if (!Modernizr.localstorage) { return false; }
-		delete localStorage["task_"+taskId];
+		delete localStorage['task_'+taskId];
 	}
 };
