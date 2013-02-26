@@ -1,3 +1,12 @@
+// mixins
+@mixin vendor-prefix($property, $argument) {
+  #{$property}: $argument;
+  -webkit-#{$property}: $argument;
+  -moz-#{$property}: $argument;
+  -ms-#{$property}: $argument;
+  -o-#{$property}: $argument;
+}
+
 html { height: 100%;}
 body { width: 100%; height: 100%; margin: 0;}
 
@@ -19,66 +28,71 @@ ol { list-style: none; margin: auto; }
 	box-shadow: 3px 0px 3px 3px #333;
 	color : #333;
 }
-/*#cTodoHeader ol {
-	float : right; margin-top: 96px; margin-right: 12px;
+#cTodoHeader ol {
+	float : right; text-align: right;
+	margin-top: 7em; margin-right: 0.6em;
 	font-weight: 700;
 }
 #cTodoHeader ol li { opacity: 0.8; cursor: pointer;}
-#cTodoHeader ol li:hover { opacity: 1; }*/
+#cTodoHeader ol li:hover { opacity: 1; }
 
 
 #taskArea {
 	background-image:url(../imgs/dark_wood.png);
 	min-height: 100%; min-width: 80%;
+	overflow: hidden;
 }
 
-.corkBoard {
-    background-image:url(../imgs/fzm-seamless.corkboard.texture.jpg);
-    border: 2px ridge #666; border-radius: 1px;
-}
+/*.corkBoard {
+	background-image:url(../imgs/fzm-seamless.corkboard.texture.jpg);
+	border: 1px solid #333; border-radius: 2px;
+	box-shadow:  2px 2px 5px 1px #333;
+}*/
 
+.outterFrame { width: 360px; overflow: hidden; }
 
 #todoList_active {
-    width: 256px;
-    margin: 6em 0 0 3em;
-    padding: 1em;
+	width: 256px; max-height: 25em;
+	margin: 7em 0 0 5em; padding: 1em;
+	overflow-y: auto; padding-right: 100px;
 }
 
 #todoList_active li {
-    position: relative; overflow: hidden;
+	position: relative; overflow: hidden;
 	background-image:url(../imgs/paper_fibers.png);
 	width: 98%; margin: 6px 3px;
 	box-shadow: 1px 1px 2px 1px #333;
-    -webkit-backface-visibility : hidden;
-    -webkit-transition: all 300ms ease;
+	-webkit-backface-visibility : hidden;
+	@include vendor-prefix(transition, all 300ms ease);
 }
 .taskBody {
-    display: inline-block; padding: 0.3em 1%; width: 88%;
-    background-color: khaki; opacity: 0.7;
+	display: inline-block; padding: 0.3em 1%; width: 88%;
+	background-color: khaki; opacity: 0.7;
 }
 
 .closeButton {
-    display: inline-block;  width: 10%;
-    text-align: center; background: #eee;  opacity: 0.7; cursor: pointer;
-    &:hover { opacity: 1; }
+	display: inline-block;  width: 10%;
+	text-align: center; background: #eee;  opacity: 0.7; cursor: pointer;
+	&:hover { opacity: 1; }
 }
 
 #todoList_active li.newTask {
-	display: inline-block; width: auto;
-	-webkit-transition: width 300ms ease;
 
-    .addButton {
-    	display: inline-block; width: 1.4em;
-    	text-align: center; cursor: pointer;
-    }
-    .closeButton { display: none;}
-    input {
-    	display: none;
-        border: 0; height: 1.5em;
-    }
-    &.expandedNewTask {
-    	width: 98%;
-        .addButton { display: none; }
-        input, .closeButton { display: inline-block;}
-    }
+	display: inline-block; width: auto;
+
+	.addButton {
+		display: inline-block; width: 1.4em;
+		text-align: center; cursor: pointer;
+	}
+	input {
+		display: none;
+		border: 0; height: 1.5em;
+	}
+	.closeButton { display: none;}
+
+	&.expandedNewTask {
+		width: 98%;
+		.addButton { display: none; }
+		input, .closeButton { display: inline-block;}
+	}
 }

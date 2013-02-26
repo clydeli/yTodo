@@ -15,6 +15,8 @@
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
 		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=load"></script>
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
+
 
 		<!-- build:css styles/main.css -->
 		<link rel="stylesheet" href="styles/main.css">
@@ -40,15 +42,19 @@
 		-->
 		<header id="cTodoHeader">
 			<div id="cTodoLogo"></div>
-			<ol><li></li></ol>
+			<ol><li id="loginButton">login</li>
+			<li id="importButton">import</li>
+			<li>search</li></ol>
 		</header>
 		<div id="taskArea">
-			<ol id="todoList_active" class="corkBoard">
-				<li class="newTask">
-                    <div class="addButton taskBody">+</div>
-                    <input class="taskBody"><div class="closeButton">x</div>
-                </li>
-			</ol>
+			<div class="outterFrame">
+				<ol id="todoList_active" class="corkBoard">
+					<li class="newTask">
+                    	<div class="addButton taskBody">+</div>
+                    	<input class="taskBody"><div class="closeButton">x</div>
+                	</li>
+				</ol>
+			</div>
 			<ol id="todoList_timeline"></ol>
 		</div>
 

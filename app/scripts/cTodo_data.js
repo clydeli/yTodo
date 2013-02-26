@@ -9,15 +9,13 @@ cTodo.Data = {
 	initialize : function(){
 		this.storageLoad();
 	},
-	connectRemoteAdapter : function(){
-
-	},
 
 	// Data CRUD functions
 	createTask : function(task){
 		// Generate a random Id (until no Id clash) for the task
 		do { task.id = (((1+Math.random())*0x10000)|0).toString(16).slice(1);
 		} while( this.localTasks.hasOwnProperty(task.id) );
+		// Save and return the generated task Id
 		this.localTasks[task.id] = task;
 		this.storageSave(task.id);
 		return task.id;
@@ -35,19 +33,20 @@ cTodo.Data = {
 		if(!this.localTasks.hasOwnProperty(taskId)){ return false; }
 		delete this.localTasks[taskId];
 		this.storageDelete(taskId);
+		if(this.remoteAdapter.initialized){ this.remoteAdapter.deleteTask(taskId); }
 	},
 
 	// HTML5 local storage functions
 	storageLoad : function(){ // Initialize Data with localStorage when possible
-		if (!Modernizr.localstorage) { return false; }
+		if(!Modernizr.localstorage) { return false; }
 		for(var storedTaskKeys in localStorage){
 			if(/^task_/.test(storedTaskKeys)){ // If the key starts with "task_"
 				this.localTasks[storedTaskKeys.slice(5)] = JSON.parse(localStorage[storedTaskKeys]);
 			}
 		}
 	},
-	storageSave : function(taskId){ // Save Data with localStorage when possible
-		if (!Modernizr.localstorage) { return false; }
+	storageSave : function(taskId){ // Save Data in localStorage when possible
+		if(!Modernizr.localstorage) { return false; }
 		if(taskId === undefined){ // Save all local tasks
 			for(var localTaskId in this.localTasks){
 				localStorage['task_'+localTaskId] = JSON.stringify(this.localTasks[localTaskId]);
@@ -55,7 +54,7 @@ cTodo.Data = {
 		} else{ localStorage['task_'+taskId] = JSON.stringify(this.localTasks[taskId]); }
 	},
 	storageDelete : function(taskId){
-		if (!Modernizr.localstorage) { return false; }
+		if(!Modernizr.localstorage) { return false; }
 		delete localStorage['task_'+taskId];
 	}
 };

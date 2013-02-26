@@ -24,12 +24,12 @@ cTodo.Core = {
 	eventBinding : function(){ // Binding system events
 		window.addEventListener('online', function(e) {
 			this.isOnline = true;
-			console.log('online');
+			console.log('Application is now online');
 			// Sync!
 		}, false);
 		window.addEventListener('offline', function(e) {
 			this.isOnline = false;
-			console.log('offline');
+			console.log('Application is now offline');
 			// Maybe disable some functionality
 		}, false);
 	}
