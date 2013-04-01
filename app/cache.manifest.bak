@@ -4,11 +4,11 @@ CACHE MANIFEST
 #http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
 #http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js
 #scripts/modernizr.min.custom.js
-#scripts/cTodo_adapters.js
-#scripts/cTodo_core.js
-#scripts/cTodo_data.js
-#scripts/cTodo_type.js
-#scripts/cTodo_ui.js
+#scripts/yTodo_adapters.js
+#scripts/yTodo_core.js
+#scripts/yTodo_data.js
+#scripts/yTodo_type.js
+#scripts/yTodo_ui.js
 #scripts/main.js
 #styles/main.css
 #index.html

@@ -20,21 +20,21 @@ ol { list-style: none; margin: auto; }
 .completed { text-decoration: line-through; }
 .hidden { width: 0; opacity: 0; overflow: hidden; }
 
-#cTodoHeader, #taskArea { float: left; height : 100%; }
+#yTodoHeader, #taskArea { float: left; height : 100%; }
 
-#cTodoHeader {
+#yTodoHeader {
 	background-image:url(../imgs/paper_fibers.png);
 	min-height: 100%; min-width: 20%;
 	box-shadow: 3px 0px 3px 3px #333;
 	color : #333;
 }
-#cTodoHeader ol {
+#yTodoHeader ol {
 	float : right; text-align: right;
 	margin-top: 7em; margin-right: 0.6em;
 	font-weight: 700;
 }
-#cTodoHeader ol li { opacity: 0.8; cursor: pointer;}
-#cTodoHeader ol li:hover { opacity: 1; }
+#yTodoHeader ol li { opacity: 0.8; cursor: pointer;}
+#yTodoHeader ol li:hover { opacity: 1; }
 
 
 #taskArea {
@@ -87,6 +87,7 @@ ol { list-style: none; margin: auto; }
 	input {
 		display: none;
 		border: 0; height: 1.5em;
+		&:focus { outline: none; }
 	}
 	.closeButton { display: none;}
 

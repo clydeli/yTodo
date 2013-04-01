@@ -1,44 +1,40 @@
-var cTodo = cTodo || {};
-cTodo.Adapters = {};
+var ytodo = ytodo || {};
+ytodo.Adapters = {};
 
-cTodo.Adapters.Google = {
-	initialized : false,
-	// cTodo registered info
-	regInfo : {
-		clientId : '207999260172.apps.googleusercontent.com',
-		apiKey : 'AIzaSyAZOeBh5jP4UnYQyV2cZYjD69hwUIYxK3s',
-		scope : 'https://www.googleapis.com/auth/tasks'
-	},
-	// User specific info
-	userInfo : {
-		listId : '',
-		updated : '',
-		localIdTable : {}, // table for matching local Id to Google tasks Id
-		remoteIdTable : {} // table for matching Google tasks Id to local Id
-	},
+ytodo.Adapters.Google = (function(){
 
-	// Global adapter functions
-	initialize : function(){
-		this.loadLocalInfo();
-		gapi.client.setApiKey(this.regInfo.apiKey); // Optional : Set Google API key
-		gapi.client.load('tasks', 'v1');
-		this.oauth();
-		this.initialized = true;
-	},
+	var
+		initialized = false,
+		// cTodo registered info
+		regInfo = {
+			clientId : '207999260172.apps.googleusercontent.com',
+			apiKey : 'AIzaSyAZOeBh5jP4UnYQyV2cZYjD69hwUIYxK3s',
+			scope : 'https://www.googleapis.com/auth/tasks'
+		},
+		// User specific info
+		userInfo = {
+			listId : '',
+			updated : '',
+			localIdTable : {}, // table for matching local Id to Google tasks Id
+			remoteIdTable : {} // table for matching Google tasks Id to local Id
+		},
 
-	createTask : function(task, callback){
+		// Global adapter functions
+		initialize = function(){
+			this.loadLocalInfo();
+			gapi.client.setApiKey(this.regInfo.apiKey); // Optional : Set Google API key
+			gapi.client.load('tasks', 'v1');
+			this.oauth();
+			this.initialized = true;
+		},
 
-	},
-	getTask : function(taskId, callback){
-
-	},
-	updateTask : function(taskId, task, callback){
-
-	},
-	deleteTask : function(taskId, callback){
-		this.deleteIdPair(taskId);
-		// Do something ... (make attrtibute "deleted" as true)
-	},
+		createTask = function(task, callback){ },
+		getTask = function(taskId, callback){ },
+		updateTask = function(taskId, task, callback){ },
+		deleteTask = function(taskId, callback){
+			this.deleteIdPair(taskId);
+			// Do something ... (make attrtibute "deleted" as true)
+		},
 
 	// Local storage functions
 	saveLocalInfo : function(){
@@ -72,14 +68,14 @@ cTodo.Adapters.Google = {
 				console.log(gapi.auth.getToken());
 			}
 		);
-    },
-    checkToken : function(){ },
-    refreshToken : function(){ },
+	},
+	checkToken : function(){ },
+	refreshToken : function(){ },
 
-    // Other adapter functions
+  // Other adapter functions
 	getLists : function(callback){
 		var request = gapi.client.tasks.tasklists.list();
-		request.execute( function(resp){ callback(resp); });
+		request.execute( function(resp){ if(callback){ callback(resp);} });
 	},
 	importTasks : function(listId){
 		console.log(listId);
@@ -88,17 +84,18 @@ cTodo.Adapters.Google = {
 		request.execute( function(resp){
 			for(var i=0; i<resp.items.length; ++i){
 				// check if the task item is already existed
-				if(that.userInfo.remoteIdTable.hasOwnProperty(resp.items[i].id)) continue;
-				var createdId = cTodo.Data.createTask( that.convertTask(resp.items[i]));
+				//if(that.userInfo.remoteIdTable.hasOwnProperty(resp.items[i].id)) continue;
+
+				var createdId = ytodo.Data.createTask( that.convertTask(resp.items[i]));
 				that.createIdPair(createdId, resp.items[i].id);
-				cTodo.UI.insertTask(cTodo.Data.getTask(createdId));
+				ytodo.UI.insertTask(ytodo.Data.getTask(createdId));
 			}
 		});
 	},
 	convertTask : function(googleTaskItem){
-		return (new cTodo.Type.taskItem({
+		return (new ytodo.Type.taskItem({
 			title : googleTaskItem.title,
 			status : googleTaskItem.status
 		}));
 	}
-};
+})();

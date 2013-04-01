@@ -1,12 +1,12 @@
-var cTodo = cTodo || {};
+var ytodo = ytodo || {};
 
-cTodo.UI = {
+ytodo.UI = {
 	// UI functions
 	initialize : function(){
 		console.log('UI initializing...');
 		// Read task data and append to html
-		for(var key in cTodo.Data.localTasks){
-			this.insertTask(cTodo.Data.localTasks[key]);
+		for(var key in ytodo.Data.localTasks){
+			this.insertTask(ytodo.Data.localTasks[key]);
 		}
 
 		$('#todoList_active').resizable({ handles: 's' });
@@ -22,11 +22,11 @@ cTodo.UI = {
 		});
 		$('.newTask').on('keyup', 'input', function(e){
 			if(e.keyCode === 13){
-				var newTask = new cTodo.Type.taskItem({
+				var newTask = new ytodo.Type.taskItem({
 					title : $('.newTask input').val()
 				});
-				var createdId = cTodo.Data.createTask(newTask);
-				that.insertTask(cTodo.Data.getTask(createdId));
+				var createdId = ytodo.Data.createTask(newTask);
+				that.insertTask(ytodo.Data.getTask(createdId));
 				$('.newTask').removeClass('expandedNewTask');
 			}
 		});
@@ -38,19 +38,19 @@ cTodo.UI = {
 			}
 			else if(taskContainer.find('.taskBody').hasClass('completed')){
 				var taskId = taskContainer.attr('data-taskId');
-				cTodo.Data.deleteTask(taskId);
+				ctodo.Data.deleteTask(taskId);
 				taskContainer.css('width', '0').fadeOut();
 			} else { taskContainer.find('.taskBody').addClass('completed'); }
 		});
 
 		// Menu button actions
-		$('#loginButton').click( function(){ cTodo.Data.remoteAdapter.initialize();	});
+		$('#loginButton').click( function(){ ytodo.Data.remoteAdapter.initialize();	});
 		$('#importButton').click( function(){
-			cTodo.Data.remoteAdapter.getLists( function(resp){
+			ytodo.Data.remoteAdapter.getLists( /*function(resp){
 				for(var i=0; i<resp.items.length; ++i){
-					cTodo.Data.remoteAdapter.importTasks(resp.items[i].id);
+					ctodo.Data.remoteAdapter.importTasks(resp.items[i].id);
 				}
-			});
+			}*/);
 		});
 
 	},

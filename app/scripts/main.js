@@ -1,4 +1,4 @@
 
 window.onload = function(){
-	cTodo.Core.initialize();
+	ytodo.Core.initialize();
 };
