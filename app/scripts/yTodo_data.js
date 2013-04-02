@@ -30,23 +30,29 @@ ytodo.Data = (function(){
 
 
 		// Data functions
-		initialize = function(){
+		initialize = function(adapter){
+			if(adapter){ remoteAdapter = adapter; }
 			storageLoad();
 		},
 
 		// Data CRUD functions
-		createTask = function(task){
+		createTask = function(task, sync){
 			// Generate a random Id (until no Id clash) for the task
 			do { task.id = (((1+Math.random())*0x10000)|0).toString(16).slice(1);
 			} while( localTasks.hasOwnProperty(task.id) );
 			// Save and return the generated task Id
 			localTasks[task.id] = task;
 			storageSave(task.id);
+			// If the task is created from local and need to be synced
+			if(sync) { remoteAdapter.createTask(task.id); }
 			return task.id;
+
 		},
 		getTask = function(taskId){
-			if(!localTasks.hasOwnProperty(taskId)){ return false; }
-			return localTasks[taskId];
+			if(taskId) {
+				if(!localTasks.hasOwnProperty(taskId)){ return false; }
+				return localTasks[taskId];
+			} else { return localTasks; }
 		},
 		updateTask = function(taskId, partialTask){
 			if(!localTasks.hasOwnProperty(taskId)){ return false; }
@@ -57,15 +63,21 @@ ytodo.Data = (function(){
 			if(!localTasks.hasOwnProperty(taskId)){ return false; }
 			delete localTasks[taskId];
 			storageDelete(taskId);
-			//if(remoteAdapter.initialized){ remoteAdapter.deleteTask(taskId); }
-		};
+			remoteAdapter.deleteTask(taskId);
+		},
+
+		// RemoteAdapter set and get
+		setAdapter = function(adapter){ remoteAdapter = adapter; }
+		getAdapter = function(adapter){ return remoteAdapter; }
 
 	return {
 		initialize : initialize,
-		create : createTask,
-		get : getTask,
-		update : updateTask,
-		remove : deleteTask
+		createTask : createTask,
+		getTask : getTask,
+		updateTask : updateTask,
+		deleteTask : deleteTask,
+		setAdapter : setAdapter,
+		getAdapter : getAdapter
 	};
 
 })();

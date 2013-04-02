@@ -36,36 +36,46 @@
 			<p class="chromeframe">You are using an outdated browser. <a href="http://browsehappy.com/">Upgrade your browser today</a> or <a href="http://www.google.com/chromeframe/?redirect=true">install Google Chrome Frame</a> to better experience this site.</p>
 		<![endif]-->
 
-		<!--
-		<button onclick="cTodo.Adapters.Google.initialize();">Authorize</button>
-		<button onclick="cTodo.Adapters.Google.getTask();">GetTask</button>
-		-->
-		<header id="yTodoHeader">
-			<div id="yTodoLogo"></div>
-			<ol><li id="loginButton">login</li>
-			<li id="importButton">import</li>
-			<li>search</li></ol>
-		</header>
-		<div id="taskArea">
-			<div class="outterFrame">
-				<ol id="todoList_active" class="corkBoard">
-					<li class="newTask">
-                    	<div class="addButton taskBody">+</div>
-                    	<input class="taskBody"><div class="closeButton">x</div>
-                	</li>
-				</ol>
+		<div id="newTaskFrame" class="hidden">
+			<div id="newTaskForm">
+				<input id="newTaskTitle" type="text" placeholder="Title"><br>
+				<select id="newTaskPriority">
+					<option value="0">Normal Priority</option>
+					<option value="1">High Priority</option>
+					<option value="2">Critical Priority</option>
+				</select><br>
+				<input type="text" placeholder="Link"><br>
+				<input type="text" placeholder="Tags"><br>
+				<button id="addOKBtn">OK</button><button id="addCancelBtn">Cancel</button>
 			</div>
-			<ol id="todoList_timeline"></ol>
 		</div>
 
-		<!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->
-		<!--
-		<script>
-			var _gaq=[['_setAccount','UA-XXXXX-X'],['_trackPageview']];
-			(function(d,t){var g=d.createElement(t),s=d.getElementsByTagName(t)[0];
-			g.src=('https:'==location.protocol?'//ssl':'//www')+'.google-analytics.com/ga.js';
-			s.parentNode.insertBefore(g,s)}(document,'script'));
-		</script>
-		-->
+		<header id="yTodoHeader">
+			<ol>
+				<li id="loginButton">login</li>
+				<li id="addButton">add</li>
+				<!--<li>search</li>-->
+			</ol>
+		</header>
+		<div id="taskArea">
+
+				<div class="listFrame">
+					<ol id="activeList" class="todoList">
+						<!--<li>
+							<div class="priorityBar"></div>
+							<div class="mainContent">
+								Test
+								<div class="deadline">Apr. 2</div>
+							</div>
+							<div class="extraContent">
+								<a href="#">link1</a>
+								<div class="tag">tag</div>
+							</div>
+						</li>-->
+					</ol>
+				</div>
+
+		</div>
+
 	</body>
 </html>

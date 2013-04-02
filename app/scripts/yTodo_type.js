@@ -9,12 +9,12 @@ ytodo.Type.taskItem = function(task){
 	this.updated = task.updated || (new Date());
 	this.isSynced = task.isSynced || false;
 	this.category = task.category || 'active'; // Active, Backlog, Regular
+	this.priority = task.priority || 0;
 	// Optional content
-  if(task.links){ this.links = task.links || []; } // Mail, Map, Regular links
+	if(task.links){ this.links = task.links || []; } // Mail, Map, Regular links
 	if(task.tags){ this.tags = task.tags || []; }
 	if(task.due){ this.due = task.due || (new Date()); }
 	if(task.note){ this.note = task.note || ''; }
-	if(task.priority){ this.priority = task.priority || 1; }
 };
 
 ytodo.Type.taskItem.prototype = {
