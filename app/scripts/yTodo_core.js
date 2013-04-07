@@ -3,17 +3,12 @@ var ytodo = ytodo || {};
 ytodo.Core = (function(window){
 
 	var
-		// Core variables
-		isOnline = navigator.online || true,
-
 		eventBinding = function(){ // Binding system events
 			window.addEventListener('online', function(e) {
-				isOnline = true;
 				console.log('Application is now online');
 				// Sync!
 			}, false);
 			window.addEventListener('offline', function(e) {
-				isOnline = false;
 				console.log('Application is now offline');
 				// Maybe disable some functionality
 			}, false);

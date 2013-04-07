@@ -21,6 +21,7 @@ i { font-style: italic; }
 
 ol { list-style: none; margin: auto; }
 
+
 .completed { text-decoration: line-through; }
 .hidden { height: 0; opacity: 0; overflow: hidden; }
 
@@ -49,16 +50,19 @@ ol { list-style: none; margin: auto; }
 }
 
 .todoList li {
+	display: block;
 	background-image:url(../imgs/paper_fibers.png);
-	//background-color: #eee;
-	position: relative; height: 3em; padding-left: 0.5em; margin: 0.2em 0;
+	position: relative; height: 3em; padding-left: 0.5em; margin: 0 0 0.3em 0;
 	border: 1px solid #666; border-radius: 1px;
 	box-shadow: 0px 0px 3px 1px #999;
-	&.hidden { opacity: 0; height: 0; }
-	@include vendor-prefix(transition, all 390ms ease);
+	&.hidden { opacity: 0; height: 0; border: none; margin: 0; box-shadow: none;}
+	&.completed { opacity: 0.5; }
+	&.completed div {text-decoration: line-through;}
+	@include vendor-prefix(transition, height 390ms ease);
 	div { display: inline-block; }
 	.priorityBar {
 		position: absolute; left: 0; top: 0;
+		margin-right: 2em;
 		height : 100%; width : 0.3em;
 		cursor: pointer;
 	}

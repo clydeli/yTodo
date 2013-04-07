@@ -32,6 +32,7 @@ ytodo.Data = (function(){
 		// Data functions
 		initialize = function(adapter){
 			if(adapter){ remoteAdapter = adapter; }
+			//if(navigator.online && document.) { remoteAdapter.initialize(); }
 			storageLoad();
 		},
 
@@ -44,7 +45,7 @@ ytodo.Data = (function(){
 			localTasks[task.id] = task;
 			storageSave(task.id);
 			// If the task is created from local and need to be synced
-			if(sync) { remoteAdapter.createTask(task.id); }
+			if(sync && navigator.online) { remoteAdapter.createTask(task.id); }
 			return task.id;
 
 		},
@@ -58,12 +59,13 @@ ytodo.Data = (function(){
 			if(!localTasks.hasOwnProperty(taskId)){ return false; }
 			for(var key in partialTask){ localTasks[taskId][key] = partialTask[key]; }
 			storageSave(taskId);
+			if(navigator.online) {remoteAdapter.updateTask(taskId, partialTask);}
 		},
 		deleteTask = function(taskId){
 			if(!localTasks.hasOwnProperty(taskId)){ return false; }
 			delete localTasks[taskId];
 			storageDelete(taskId);
-			remoteAdapter.deleteTask(taskId);
+			if(navigator.online) {remoteAdapter.deleteTask(taskId);}
 		},
 
 		// RemoteAdapter set and get

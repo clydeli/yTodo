@@ -39,14 +39,22 @@ ytodo.Adapters.Google = (function(){
 			});
 		},
 		getTask = function(taskId, callback){ },
-		updateTask = function(taskId, task, callback){ },
-		deleteTask = function(taskId, callback){
-			var request = gapi.client.tasks.tasks.delete({
-				tasklist: userInfo.listId, task : userInfo.localIdTable[taskId]
+		updateTask = function(taskId, partialTask, callback){
+			var request = gapi.client.tasks.tasks.patch({
+				tasklist : userInfo.listId, task : userInfo.localIdTable[taskId],
+				resource : convertToGoogleTask(partialTask)
 			});
 			request.execute( function(resp){
-				deleteIdPair(taskId);
-				console.log("deleted", resp)
+				console.log("patched", resp);
+			});
+		},
+		deleteTask = function(localId, callback){
+			var request = gapi.client.tasks.tasks.delete({
+				tasklist: userInfo.listId, task : userInfo.localIdTable[localId]
+			});
+			request.execute( function(resp){
+				deleteIdPair(localId);
+				console.log("deleted", resp);
 			});
 		},
 
@@ -124,20 +132,30 @@ ytodo.Adapters.Google = (function(){
 		},
 		convertToLocalTask = function(googleTaskItem){
 			var metaObject = JSON.parse(googleTaskItem.notes);
-			return (new ytodo.Type.taskItem({
+			var localTaskItem = new ytodo.Type.taskItem({
 				title : googleTaskItem.title,
 				status : googleTaskItem.status,
-				priority : metaObject.priority
-			}));
+				priority : metaObject.priority,
+				category : metaObject.category,
+			});
+			if(metaObject.links){ localTaskItem.links = metaObject.links; }
+			if(metaObject.tags){ localTaskItem.tags = metaObject.tags; }
+			if(metaObject.note){ localTaskItem.note = metaObject.note; }
+			return localTaskItem;
 		},
-		convertToGoogleTask = function(localTask){
-			var metaObject = {
-				priority : localTask.priority
-			};
-			return {
-				title : localTask.title,
-				notes : JSON.stringify(metaObject)
-			};
+		convertToGoogleTask = function(localTaskItem){
+			var metaObject = {}, googleTaskItem = {}, hasMeta = false;;
+			for(var key in localTaskItem){
+				if(!localTaskItem.hasOwnProperty(key)) { continue; }
+				if(['title', 'status'].indexOf(key) !== -1){
+					googleTaskItem[key] = localTaskItem[key];
+				} else if(['priority', 'category', 'links', 'tags', 'notes'].indexOf(key) !== -1){
+					metaObject[key] = localTaskItem[key];
+					hasMeta = true;
+				}
+			}
+			if(hasMeta) { googleTaskItem.notes = JSON.stringify(metaObject); }
+			return googleTaskItem;
 		};
 
 	return {
@@ -145,4 +163,5 @@ ytodo.Adapters.Google = (function(){
 		createTask : createTask,
 		deleteTask : deleteTask
 	};
+
 })();
