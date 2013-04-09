@@ -23,9 +23,6 @@ ytodo.UI = (function(){
 		eventBinding = function(){
 
 			// Binding UI events
-			// Sortable and Draggable
-			$("ul.todoList").sortable({	connectWith: "ul", cursorAt: { right: 50 } });
-			$(".todoList").disableSelection();
 
 			// Menu button actions
 			$('#loginButton').click( function(){ ytodo.Data.getAdapter().initialize(); });
@@ -37,10 +34,21 @@ ytodo.UI = (function(){
 				// Create new task item
 				var newTask = new ytodo.Type.taskItem({
 					title : $('#newTaskTitle').val(),
-					priority : $('#newTaskPriority').val(),
+					priority : $('input[name="newTaskPriority"]:checked').val(),
 					category : 'active'
 				});
-				var createdId = ytodo.Data.createTask(newTask, true);
+
+				// Optional properties
+				if($('#newTaskLinks').val() != ""){
+					newTask.links = [$('#newTaskLinks').val()];
+				}
+				if($('#newTaskTags').val() != ""){
+					var tags = $('#newTaskTags').val().split(',');
+					tags = tags.map(function(i){ return i.replace(/^\s\s*/, '').replace(/\s\s*$/, ''); });
+					newTask.tags = tags;
+				}
+
+				var createdId = ytodo.Data.createTask(newTask);
 				// UI reactions
 				insertTask(ytodo.Data.getTask(createdId));
 				$('#newTaskFrame').addClass('hidden');
@@ -59,6 +67,7 @@ ytodo.UI = (function(){
 				}
 				e.stopPropagation();
 			});
+
 			// Recover or expand/collpase an item
 			$('#taskArea').on('click', '.todoList li', function(){
 				var taskId = $(this).attr('data-taskId');
@@ -67,6 +76,7 @@ ytodo.UI = (function(){
 					$(this).removeClass('completed');
 				}
 			});
+
 			// Update item priority
 			$('#taskArea').on('click', '.priorityBar', function(e){
 				var taskId = $(this).parent().attr('data-taskId');
@@ -75,6 +85,30 @@ ytodo.UI = (function(){
 				$(this).css('background-color', priorityColorTable[newPriority]);
 				e.stopPropagation();
 			});
+
+			// Sortable and Draggable
+			$("ul.todoList").sortable({
+				connectWith: "ul",
+				cursorAt: { right: 50 },
+				placeholder: "li-placeholder",
+				update: function(e, target){
+					var
+						taskId = $(target.item).attr('data-taskId'),
+						targetList = $(target.item).parent()[0].id.slice(0, -4),
+						srcList = $(this)[0].id.slice(0, -4);
+
+					if( targetList !== srcList ){
+						ytodo.Data.updateTask(taskId, {	category : targetList });
+					}
+
+				}
+			});
+
+
+			$(".todoList").disableSelection();
+
+
+
 		},
 
 		// Inner functions
@@ -83,15 +117,30 @@ ytodo.UI = (function(){
 				'<li data-taskId="'+task.id+'">'+
 					'<div class="priorityBar" style="background-color:'+priorityColorTable[task.priority]+';"></div>'+
 					'<div class="mainContent">'+task.title+'</div>'+
-					'<div class="extraContent">'+
-					'</div>'+'<div class="closeBar"></div>'+
+					'<div class="extraContent">';
+						console.log(task.links);
+						if(task.links){
+							for(var i=0; i<task.links.length; ++i){
+								taskHTML += '<a href="'+task.links[i]+'" rel="external" target="_blank">link'+String(i+1)+'</a>';
+						}}
+						if(task.tags){
+							for(var j=0; j<task.tags.length; ++j){
+								taskHTML += '<div class="tags">'+task.tags[j]+'</div>';
+						}}
+						taskHTML +=
+					'</div>'+
+					'<div class="closeBar"></div>'+
 				'</li>';
 
-			switch(task.category){
+			$('#'+task.category+'List').append(taskHTML);
+			/*switch(task.category){
 				case 'active' :
 					$('#activeList').append(taskHTML);
 					break;
-			}
+				case 'backlog' :
+					$('#backlogList').append(taskHTML);
+					break;
+			}*/
 		};
 
 		return {

@@ -4,6 +4,8 @@ ytodo.Adapters = {};
 ytodo.Adapters.Google = (function(){
 
 	var
+		connected = false,
+
 		// cTodo registered info
 		regInfo = {
 			clientId : '207999260172.apps.googleusercontent.com',
@@ -25,7 +27,7 @@ ytodo.Adapters.Google = (function(){
 			gapi.client.load('tasks', 'v1');
 			oauth(getList);
 		},
-
+		isConnected = function(){ return connected;	},
 		createTask = function(localId, callback){
 			//if(userInfo.localIdTable.hasOwnProperty(localId)){ return false;}
 			var localTask = ytodo.Data.getTask(localId);
@@ -87,6 +89,7 @@ ytodo.Adapters.Google = (function(){
 				{ 'client_id': regInfo.clientId, 'scope': regInfo.scope },
 				function() {
 					console.log(gapi.auth.getToken());
+					connected = true;
 					if(callback){ callback();}
 				}
 			);
@@ -137,6 +140,7 @@ ytodo.Adapters.Google = (function(){
 				status : googleTaskItem.status,
 				priority : metaObject.priority,
 				category : metaObject.category,
+				isSynced : true
 			});
 			if(metaObject.links){ localTaskItem.links = metaObject.links; }
 			if(metaObject.tags){ localTaskItem.tags = metaObject.tags; }
@@ -159,9 +163,10 @@ ytodo.Adapters.Google = (function(){
 		};
 
 	return {
-		initialize : initialize,
-		createTask : createTask,
-		deleteTask : deleteTask
+		initialize: initialize,
+		createTask: createTask,
+		deleteTask: deleteTask,
+		isConnected: isConnected
 	};
 
 })();

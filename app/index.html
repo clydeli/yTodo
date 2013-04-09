@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html manifest="manifest.appcache" class="no-js"> <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -39,13 +39,13 @@
 		<div id="newTaskFrame" class="hidden">
 			<div id="newTaskForm">
 				<input id="newTaskTitle" type="text" placeholder="Title"><br>
-				<select id="newTaskPriority">
-					<option value="0">Normal Priority</option>
-					<option value="1">High Priority</option>
-					<option value="2">Critical Priority</option>
-				</select><br>
-				<input type="text" placeholder="Link"><br>
-				<input type="text" placeholder="Tags"><br>
+				Priority:
+				<input type="radio" name="newTaskPriority" value="0" checked> Normal
+				<input type="radio" name="newTaskPriority" value="1"> High
+				<input type="radio" name="newTaskPriority" value="2"> Critical
+				<br>
+				<input id="newTaskLinks" type="text" placeholder="Link"><br>
+				<input id="newTaskTags" type="text" placeholder="Tags"><br>
 				<button id="addOKBtn">OK</button><button id="addCancelBtn">Cancel</button>
 			</div>
 		</div>
@@ -60,6 +60,7 @@
 		<div id="taskArea">
 
 				<div class="listFrame">
+					<div class="listTitle">Active List</div>
 					<ul id="activeList" class="todoList">
 						<!--<li>
 							<div class="priorityBar"></div>
@@ -72,6 +73,15 @@
 								<div class="tag">tag</div>
 							</div>
 						</li>-->
+					</ul>
+				</div>
+
+				<div class="listFrame rightFrame">
+					<div class="listTitle">Backlog</div>
+					<ul id="backlogList" class="todoList">
+					</ul>
+					<div class="listTitle">Regular</div>
+					<ul id="regularList" class="todoList">
 					</ul>
 				</div>
 
