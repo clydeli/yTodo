@@ -8,6 +8,7 @@ ytodo.UI = (function(){
 		// UI functions
 		initialize = function(){
 			console.log('UI initializing...');
+
 			// Read task data and append to html
 			for(var key in ytodo.Data.getTask()){
 				var taskItem = ytodo.Data.getTask(key);
@@ -18,6 +19,10 @@ ytodo.UI = (function(){
 				}
 			}
 
+			// Initialize datepicker
+			$('#newTaskDue').datepicker();
+
+			createTagList();
 			eventBinding();
 		},
 		eventBinding = function(){
@@ -51,6 +56,7 @@ ytodo.UI = (function(){
 				var createdId = ytodo.Data.createTask(newTask);
 				// UI reactions
 				insertTask(ytodo.Data.getTask(createdId));
+				if($('#newTaskTags').val() != ""){ createTagList(); }
 				$('#newTaskFrame').addClass('hidden');
 			});
 
@@ -72,7 +78,7 @@ ytodo.UI = (function(){
 			$('#taskArea').on('click', '.todoList li', function(){
 				var taskId = $(this).attr('data-taskId');
 				if($(this).hasClass('completed')){
-					ytodo.Data.updateTask(taskId, {	status : 'needs Action' });
+					ytodo.Data.updateTask(taskId, {	status : 'needsAction' });
 					$(this).removeClass('completed');
 				}
 			});
@@ -103,11 +109,29 @@ ytodo.UI = (function(){
 
 				}
 			});
-
-
 			$(".todoList").disableSelection();
 
+			// tagList click handler
+			$('#tagList').on('click', '.tags', function(){
+				if($(this).hasClass('selected')){
+					$(this).removeClass('selected');
+					$('.todoList li').removeClass('hidden');
+					return true;
+				}
 
+				$('#tagList .tags').removeClass('selected');
+				$(this).addClass('selected');
+
+				$('.todoList li').addClass('hidden');
+				var selectedTag = $(this).html();
+				$('.todoList li').each(function(){
+					var hasTag = false;
+					$(this).find('.tags').each(function(){
+						if($(this).html() == selectedTag){ hasTag = true; }
+					});
+					if(hasTag){ $(this).removeClass('hidden'); }
+				});
+			});
 
 		},
 
@@ -118,7 +142,6 @@ ytodo.UI = (function(){
 					'<div class="priorityBar" style="background-color:'+priorityColorTable[task.priority]+';"></div>'+
 					'<div class="mainContent">'+task.title+'</div>'+
 					'<div class="extraContent">';
-						console.log(task.links);
 						if(task.links){
 							for(var i=0; i<task.links.length; ++i){
 								taskHTML += '<a href="'+task.links[i]+'" rel="external" target="_blank">link'+String(i+1)+'</a>';
@@ -132,15 +155,23 @@ ytodo.UI = (function(){
 					'<div class="closeBar"></div>'+
 				'</li>';
 
+			// Add to corresponding list
 			$('#'+task.category+'List').append(taskHTML);
-			/*switch(task.category){
-				case 'active' :
-					$('#activeList').append(taskHTML);
-					break;
-				case 'backlog' :
-					$('#backlogList').append(taskHTML);
-					break;
-			}*/
+		},
+
+		createTagList = function(){
+			var tagsHash = {}; // Used to save current tags
+
+			// Traverse all tags on screen
+			$('.tags').each(function(){
+				tagsHash[$(this).html()] = true;
+			});
+
+			// Insert tags to tagList
+			$('#tagList').html('');
+			for(var tagKey in tagsHash){
+				$('#tagList').append('<li class="tags">'+tagKey+'</li>');
+			}
 		};
 
 		return {

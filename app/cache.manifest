@@ -1,9 +1,9 @@
 CACHE MANIFEST
-# v0.3.042013.1
+# v0.3.042013.5
 
 http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js
-http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js
-scripts/modernizr.min.custom.js
+http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js
+scripts/vendor/modernizr.min.custom.js
 scripts/yTodo_adapters.js
 scripts/yTodo_core.js
 scripts/yTodo_data.js
@@ -11,7 +11,7 @@ scripts/yTodo_type.js
 scripts/yTodo_ui.js
 scripts/main.js
 styles/main.css
-index.html
+imgs/shattered.png
 
 NETWORK:
 *

@@ -2,7 +2,7 @@
 <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
 <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
 <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
-<!--[if gt IE 8]><!--> <html manifest="manifest.appcache" class="no-js"> <!--<![endif]-->
+<!--[if gt IE 8]><!--> <html manifest="cache.manifestn" class="no-js"> <!--<![endif]-->
 	<head>
 		<meta charset="utf-8">
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
@@ -12,10 +12,10 @@
 
 		<!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 		<script src="scripts/vendor/modernizr.min.custom.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
-		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/2.0.0/jquery.min.js"></script>
+		<script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.2/jquery-ui.min.js"></script>
 		<script src="https://apis.google.com/js/client.js?onload=load"></script>
-		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.1/themes/base/jquery-ui.css">
+		<link rel="stylesheet" href="http://code.jquery.com/ui/1.10.2/themes/smoothness/jquery-ui.css">
 
 
 		<!-- build:css styles/main.css -->
@@ -46,21 +46,25 @@
 				<br>
 				<input id="newTaskLinks" type="text" placeholder="Link"><br>
 				<input id="newTaskTags" type="text" placeholder="Tags"><br>
+				<!--<input id="newTaskDue" type="text" placeholder="DueDate"><br>-->
 				<button id="addOKBtn">OK</button><button id="addCancelBtn">Cancel</button>
 			</div>
 		</div>
 
 		<header id="yTodoHeader">
-			<ol>
+			<ol id="mainMenu">
 				<li id="loginButton">login</li>
 				<li id="addButton">add</li>
 				<!--<li>search</li>-->
+			</ol>
+			<ol id="tagList">
+				<!--<li class="tags">cmusv</li>-->
 			</ol>
 		</header>
 		<div id="taskArea">
 
 				<div class="listFrame">
-					<div class="listTitle">Active List</div>
+					<div class="listTitle">Active Items</div>
 					<ul id="activeList" class="todoList">
 						<!--<li>
 							<div class="priorityBar"></div>
@@ -70,7 +74,7 @@
 							</div>
 							<div class="extraContent">
 								<a href="#">link1</a>
-								<div class="tag">tag</div>
+								<div class="tags">tag</div>
 							</div>
 						</li>-->
 					</ul>
@@ -80,7 +84,7 @@
 					<div class="listTitle">Backlog</div>
 					<ul id="backlogList" class="todoList">
 					</ul>
-					<div class="listTitle">Regular</div>
+					<div class="listTitle">Regular Items</div>
 					<ul id="regularList" class="todoList">
 					</ul>
 				</div>

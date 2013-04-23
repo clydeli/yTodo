@@ -45,7 +45,7 @@ ytodo.Data = (function(){
 			localTasks[task.id] = task;
 			storageSave(task.id);
 			// If the task is created from local and need to be synced
-			if(!task.isSynced && remoteAdapter.isConnected() && navigator.online) {
+			if(!task.isSynced && remoteAdapter.isConnected() && navigator.onLine) {
 				remoteAdapter.createTask(task.id);
 			}
 			return task.id;
@@ -60,18 +60,22 @@ ytodo.Data = (function(){
 		updateTask = function(taskId, partialTask){
 			if(!localTasks.hasOwnProperty(taskId)){ return false; }
 			for(var key in partialTask){ localTasks[taskId][key] = partialTask[key]; }
+			localTasks[taskId].isSynced = false;
 			storageSave(taskId);
-			if(remoteAdapter.isConnected() && navigator.online){
-				remoteAdapter.updateTask(taskId, partialTask);
+			if(remoteAdapter.isConnected() && navigator.onLine){
+				remoteAdapter.updateTask(taskId, localTasks[taskId]);
 			}
 		},
 		deleteTask = function(taskId){
 			if(!localTasks.hasOwnProperty(taskId)){ return false; }
 			delete localTasks[taskId];
 			storageDelete(taskId);
-			if(remoteAdapter.isConnected() && navigator.online){
+			if(remoteAdapter.isConnected() && navigator.onLine){
 				remoteAdapter.deleteTask(taskId);
 			}
+		},
+		hasTask = function(taskId){
+			return localTaskId.hasOwnProperty(taskId);
 		},
 
 		// RemoteAdapter set and get
@@ -84,6 +88,7 @@ ytodo.Data = (function(){
 		getTask : getTask,
 		updateTask : updateTask,
 		deleteTask : deleteTask,
+		hasTask : hasTask,
 		setAdapter : setAdapter,
 		getAdapter : getAdapter
 	};

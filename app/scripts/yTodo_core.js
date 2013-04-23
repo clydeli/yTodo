@@ -17,6 +17,14 @@ ytodo.Core = (function(window){
 		initialize = function(){
 			console.log('Core initializing...');
 
+			// Check manifest cache update
+			$(window.applicationCache).on('updateready', function(){
+				if(window.applicationCache.status === window.applicationCache.UPDATEREADY){
+					console.log("Site cache updated, now reloading...");
+					window.applicationCache.swapCache();
+					window.location.reload();
+				}
+			});
 			// Alert message of lacking support on localStorage
 			if(!Modernizr.localstorage) { alert('Your browser does not support localStorage'); }
 

@@ -6,7 +6,7 @@ ytodo.Adapters.Google = (function(){
 	var
 		connected = false,
 
-		// cTodo registered info
+		// yTodo registered info
 		regInfo = {
 			clientId : '207999260172.apps.googleusercontent.com',
 			apiKey : 'AIzaSyAZOeBh5jP4UnYQyV2cZYjD69hwUIYxK3s',
@@ -26,11 +26,14 @@ ytodo.Adapters.Google = (function(){
 			gapi.client.setApiKey(regInfo.apiKey); // Optional : Set Google API key
 			gapi.client.load('tasks', 'v1');
 			oauth(getList);
+			connected = true;
 		},
 		isConnected = function(){ return connected;	},
 		createTask = function(localId, callback){
 			//if(userInfo.localIdTable.hasOwnProperty(localId)){ return false;}
 			var localTask = ytodo.Data.getTask(localId);
+			console.log(userInfo.listId);
+			console.log(convertToGoogleTask(localTask));
 			var request = gapi.client.tasks.tasks.insert({
 				tasklist : userInfo.listId,
 				resource : convertToGoogleTask(localTask)
@@ -133,6 +136,14 @@ ytodo.Adapters.Google = (function(){
 				}
 			});
 		},
+		sanitizeTasks = function(){
+			// Check if local items are deleted
+			for(var taskKey in userInfo.localIdTable){
+				if(!yTodo.Data.hasTask(taskKey)){
+					deleteTask(taskKey);
+				}
+			}
+		},
 		convertToLocalTask = function(googleTaskItem){
 			var metaObject = JSON.parse(googleTaskItem.notes);
 			var localTaskItem = new ytodo.Type.taskItem({
@@ -159,12 +170,14 @@ ytodo.Adapters.Google = (function(){
 				}
 			}
 			if(hasMeta) { googleTaskItem.notes = JSON.stringify(metaObject); }
+			if(googleTaskItem.status == 'needsAction'){ googleTaskItem.completed = null; }
 			return googleTaskItem;
 		};
 
 	return {
 		initialize: initialize,
 		createTask: createTask,
+		updateTask: updateTask,
 		deleteTask: deleteTask,
 		isConnected: isConnected
 	};
